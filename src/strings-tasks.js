@@ -20,9 +20,7 @@
  *   getStringLength(undefined) => 0
  */
 function getStringLength(value = '') {
-  return value === '' || value === undefined || value === null
-    ? 0
-    : value.length;
+  return !value ? 0 : value.length;
 }
 
 /**
@@ -199,7 +197,7 @@ function removeLastOccurrences(str, value) {
  *   sumOfCodes() => 0
  */
 function sumOfCodes(str = '') {
-  if (str === '' || str === null || str === undefined) {
+  if (!str) {
     return 0;
   }
 
@@ -344,8 +342,24 @@ function countVowels(str) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str = undefined) {
+  if (!str) {
+    return false;
+  }
+  const strOnlyLowerCher = str.toLowerCase().replace(/[^a-z]/g, '');
+
+  let leftIndex = 0;
+  let rightIndex = strOnlyLowerCher.length - 1;
+
+  while (rightIndex > leftIndex) {
+    if (strOnlyLowerCher[rightIndex] !== strOnlyLowerCher[leftIndex]) {
+      return false;
+    }
+    rightIndex -= 1;
+    leftIndex += 1;
+  }
+
+  return true;
 }
 
 /**
@@ -360,8 +374,14 @@ function isPalindrome(/* str */) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  let bigWord = '';
+  sentence.split(' ').forEach((word) => {
+    if (word.length > bigWord.length) {
+      bigWord = word;
+    }
+  });
+  return bigWord;
 }
 
 /**
